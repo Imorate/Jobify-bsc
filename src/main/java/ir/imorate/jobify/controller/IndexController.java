@@ -15,10 +15,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class IndexController {
 
-    private UserService userService;
-    private ProfileService profileService;
+    private final UserService userService;
+    private final ProfileService profileService;
 
-    @GetMapping
+    @GetMapping("/")
     public String index(Model model) {
         if (userService.isAuthenticated()) {
             Optional<User> currentUserLogin = userService.getCurrentUserLogin();
