@@ -10,7 +10,6 @@ import org.mapstruct.Mapping;
 public interface SignupMapper {
 
     @Mapping(target = "roles", ignore = true)
-    @Mapping(target = "profile", ignore = true)
     @Mapping(target = "modifiedDate", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
