@@ -12,7 +12,7 @@ public class ApplicationProperties {
     /**
      * Name of the application.
      */
-    private String name;
+    private String name = "Jobify";
 
     /**
      * Description of the application.

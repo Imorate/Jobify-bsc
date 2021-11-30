@@ -1,6 +1,6 @@
 package ir.imorate.jobify.config.security;
 
-import ir.imorate.jobify.config.properties.ControllerProperties;
+import ir.imorate.jobify.config.mvc.WebConstants;
 import lombok.AllArgsConstructor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,25 +15,22 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 @AllArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final ControllerProperties controllerProperties;
-    private final ControllerProperties.Login loginControllerProperties;
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final PersistentTokenRepository persistentTokenRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String loginUrl = loginControllerProperties.getUrl();
         http
                 .authorizeRequests()
-                .antMatchers("/", controllerProperties.getSignup()).permitAll()
+                .antMatchers("/", WebConstants.SIGNUP_URL).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage(loginUrl).permitAll()
-                .defaultSuccessUrl(controllerProperties.getDashboard()).permitAll()
-                .failureUrl(loginControllerProperties.getFailure())
+                .loginPage(WebConstants.LOGIN_URL).permitAll()
+                .defaultSuccessUrl(WebConstants.DASHBOARD_URL).permitAll()
+                .failureUrl(WebConstants.LOGIN_FAILURE_URL)
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
@@ -42,7 +39,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .tokenRepository(persistentTokenRepository)
                 .and()
                 .logout()
-                .logoutUrl(controllerProperties.getLogout())
+                .logoutUrl(WebConstants.LOGOUT_URL)
                 .logoutSuccessUrl("/")
         ;
     }
