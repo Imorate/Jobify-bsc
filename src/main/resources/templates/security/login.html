@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{security/fragment/_layout :: head(~{:: title})}">
+    <title th:text="|#{app.name} - #{nav.login}|">جابیفای - ورود</title>
+</head>
+<body>
+<div th:replace="~{security/fragment/_layout :: main(~{:: header}, ~{:: div.alert}, ~{:: form.card-body})}">
+    <header class="d-flex flex-column align-items-center">
+        <a href="/">
+            <img alt="Jobify" class="mb-2" height="80" th:alt="#{app.name}" th:src="@{logo.svg}" width="80">
+        </a>
+        <h2 th:text="#{nav.login}">ورود</h2>
+    </header>
+    <div class="alert alert-success m-3" role="alert" th:if="${registeredUser.username}">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-check-circle-fill flex-shrink-0 me-2"></i>
+            <div th:text="#{sec.signup.create-account.successful(${registeredUser.firstName}, ${registeredUser.lastName})}">حساب کاربری شما با موفقیت ساخته شد</div>
+        </div>
+    </div>
+    <div class="alert alert-danger m-3" role="alert" th:if="${param.error} and ${session.SPRING_SECURITY_LAST_EXCEPTION != null}">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-exclamation-circle flex-shrink-0 me-2"></i>
+            <div th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.getMessage()}">Error</div>
+        </div>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert" sec:authorize="isAuthenticated()">
+        <div class="d-flex mb-3">
+            <i class="bi bi-exclamation-square-fill flex-shrink-0 me-2"></i>
+            <div th:text="#{sec.already-logged-in.message}">Info</div>
+        </div>
+        <form th:action="@{/logout}" th:method="POST">
+            <a class="btn btn-primary" role="button" th:href="@{/}">بازگشت به صفحه اصلی</a>
+            <button class="btn btn-outline-secondary" type="submit">خروج از سامانه</button>
+        </form>
+    </div>
+    <form class="card-body needs-validation mb-3" novalidate sec:authorize="isAnonymous()" th:action="@{/login}" th:method="POST">
+        <div class="form-floating mb-3">
+            <input class="form-control" id="username" name="username" required th:placeholder="#{sec.username}" type="text">
+            <label for="username" th:text="#{sec.username}">نام کاربری</label>
+            <div class="invalid-feedback" th:text="#{sec.validation.username.null}">
+                لطفا نام کاربری را وارد کنید
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" id="password" name="password" required th:placeholder="#{sec.password}" type="password">
+            <label for="password" th:text="#{sec.password}">رمز عبور</label>
+            <div class="invalid-feedback" th:text="#{sec.validation.password.null}">
+                لطفا رمز عبور را وارد کنید
+            </div>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" id="remember-me" name="remember-me" type="checkbox">
+            <label class="form-check-label" for="remember-me" th:text="#{sec.remember-me}">
+                به خاطر بسپار
+            </label>
+        </div>
+        <div class="mb-4">
+            <a class="text-decoration-none" th:href="@{/forget-password}">رمز عبور خود را فراموش کرده‌اید؟</a>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <button class="w-100 btn btn-lg btn-primary fw-bold" th:text="#{sec.login}" type="submit">
+                    ورود
+                </button>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-lg w-100 fw-bold bg-primary bg-gradient text-white" th:href="@{/signup}" th:text="#{sec.signup}">
+                    ثبت نام
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:replace="~{security/fragment/_layout :: script}"/>
+</body>
+</html>

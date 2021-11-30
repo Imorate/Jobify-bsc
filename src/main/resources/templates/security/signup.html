@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{security/fragment/_layout :: head(~{:: title})}">
+    <title th:text="|#{app.name} - #{nav.signup}|">جابیفای - ثبت نام</title>
+</head>
+<body>
+<div th:replace="~{security/fragment/_layout :: main(~{:: header}, ~{:: #already-logged-in}, ~{:: form.card-body})}">
+    <header class="d-flex flex-column align-items-center">
+        <a href="/">
+            <img alt="Jobify" class="mb-2" height="80" th:alt="#{app.name}" th:src="@{logo.svg}" width="80">
+        </a>
+        <h2 th:text="#{nav.signup}">ثبت نام</h2>
+    </header>
+    <div class="alert alert-warning mt-3" id="already-logged-in" role="alert" sec:authorize="isAuthenticated()">
+        <div class="d-flex mb-3">
+            <i class="bi bi-exclamation-square-fill flex-shrink-0 me-2"></i>
+            <div th:text="#{sec.already-logged-in.message}">Info</div>
+        </div>
+        <form th:action="@{/logout}" th:method="POST">
+            <a class="btn btn-primary" role="button" th:href="@{/}">بازگشت به صفحه اصلی</a>
+            <button class="btn btn-outline-secondary" type="submit">خروج از سامانه</button>
+        </form>
+    </div>
+    <form class="card-body needs-validation mb-3" novalidate sec:authorize="isAnonymous()" th:action="@{/signup}" th:method="POST" th:object="${signupDTO}">
+        <div class="row g-2 mb-3">
+            <div class="col">
+                <div class="form-floating">
+                    <input autofocus class="form-control" id="firstname" name="firstname" required th:field="*{firstName}" th:placeholder="#{sec.first-name}" type="text">
+                    <label for="firstname" th:text="#{sec.first-name}">نام</label>
+                    <div class="invalid-feedback" th:text="#{sec.validation.first-name.null}">
+                        لطفا نام را وارد کنید
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" id="lastname" name="lastname" required th:field="*{lastName}" th:placeholder="#{sec.last-name}" type="text">
+                    <label for="lastname" th:text="#{sec.last-name}">نام خانوادگی</label>
+                    <div class="invalid-feedback" th:text="#{sec.validation.last-name.null}">
+                        لطفا نام خانوادگی را وارد کنید
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row g-2 mb-3">
+            <div class="col-5">
+                <div class="form-floating">
+                    <input class="form-control" id="username" name="username" required th:field="*{username}" th:placeholder="#{sec.username}" type="text">
+                    <label for="username" th:text="#{sec.username}">نام کاربری</label>
+                    <div class="invalid-feedback" th:text="#{sec.validation.username.null}">
+                        لطفا نام کاربری را وارد کنید
+                    </div>
+                </div>
+            </div>
+            <div class="col-7">
+                <div class="form-floating">
+                    <input class="form-control" id="email" name="email" required th:field="*{email}" th:placeholder="#{sec.email}" type="email">
+                    <label for="email" th:text="#{sec.email}">ایمیل</label>
+                    <div class="invalid-feedback" th:text="#{sec.validation.email.valid}">
+                        لطفا ایمیل معتبری وارد کنید
+                    </div>
+                </div>
+            </div>
+            <small class="form-text text-muted" th:text="#{sec.email-tip}">* ایمیل شما به هیچ‌وجه با اشخاص دیگر به اشتراک گذاشته نمی‌شود.</small>
+        </div>
+        <div class="form-floating mb-3">
+            <select aria-label="Gender selection" class="form-select" id="gender-selection" th:field="*{gender}">
+                <option selected th:text="#{sec.gender}" value="other">جنسیت</option>
+                <option th:each="gender: ${T(ir.imorate.jobify.entity.security.enums.Gender).values()}" th:text="#{${'gender.' + gender}}" th:value="${gender.title}">جنسیت
+                </option>
+            </select>
+            <label for="gender-selection" th:text="#{sec.gender-selection}">انتخاب جنسیت</label>
+            <div class="invalid-feedback" th:text="#{sec.validation.gender.valid}">
+                جنسیت معتبری را وارد کنید
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" id="phone-number" name="phone-number" th:field="*{phoneNumber}" th:placeholder="#{sec.phone-number}" type="text">
+            <label for="phone-number" th:text="#{sec.phone-number}">شماره تماس</label>
+        </div>
+        <div class="row g-2 mb-3">
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" id="password" name="password" required th:field="*{password}" th:placeholder="#{sec.password}" type="password">
+                    <label for="password" th:text="#{sec.password}">رمز عبور</label>
+                    <div class="invalid-feedback" th:text="#{sec.validation.password.null}">
+                        لطفا رمز عبور را وارد کنید
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" id="confirm-password" name="confirm-password" required th:placeholder="#{sec.confirm-password}" type="password">
+                    <label for="confirm-password" th:text="#{sec.confirm-password}">تکرار رمز عبور</label>
+                    <div class="invalid-feedback" th:text="#{sec.validation.password-confirm.null}">
+                        لطفا تکرار رمز عبور را وارد کنید
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" id="accept-terms" name="accept-terms" required type="checkbox">
+            <label class="form-check-label" for="accept-terms" th:text="#{sec.accept-terms}">
+                تمامی قوانین و ضوابط را قبول می کنم.
+            </label>
+            <div class="invalid-feedback" th:text="#{sec.validation.accept-terms.null}">
+                لطفا قوانین و ضوابط را بپذیرید
+            </div>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert" th:if="${#fields.hasErrors('*')}">
+            <div class="d-flex align-items-center" th:each="err : ${#fields.errors('*')}">
+                <i class="bi bi-exclamation-circle-fill flex-shrink-0 me-2"></i>
+                <div th:text="${err}">اشکال در فیلد</div>
+            </div>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <button class="w-100 btn btn-lg btn-primary fw-bold" th:text="#{sec.signup}" type="submit">
+                    ثبت نام
+                </button>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-lg w-100 fw-bold bg-primary bg-gradient text-white" th:href="@{/login}" th:text="#{sec.login}">
+                    ورود
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:replace="~{security/fragment/_layout :: script}"/>
+</body>
+</html>
