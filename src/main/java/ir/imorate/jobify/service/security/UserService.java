@@ -12,6 +12,8 @@ public interface UserService {
 
     Optional<User> findUser(String username);
 
+    boolean isUserExists(String username, String email);
+
     boolean isAuthenticated();
 
     boolean hasCurrentUserAnyOfAuthorities(String... authorities);

@@ -68,6 +68,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
+    public boolean isUserExists(String username, String email) {
+        return userRepository.existsByUsernameOrEmailAllIgnoreCase(username, email);
+    }
+
+    @Override
     public Optional<User> getCurrentUserLogin() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         return findUser(extractPrincipal(securityContext.getAuthentication()));

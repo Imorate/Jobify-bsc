@@ -34,6 +34,10 @@ public class SecurityController {
     @PostMapping("/signup")
     public String signup(@Valid @ModelAttribute SignupDTO signupDTO, BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
+        if (userService.isUserExists(signupDTO.getUsername(), signupDTO.getEmail())) {
+            bindingResult.reject("sec.validation.user-exists.reject", "Registration Error");
+            return "security/signup";
+        }
         if (bindingResult.hasErrors()) {
             return "security/signup";
         }
