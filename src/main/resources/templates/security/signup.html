@@ -3,7 +3,7 @@
 <head th:replace="~{security/fragment/_layout :: head(~{:: title})}">
     <title th:text="|#{app.name} - #{nav.signup}|">جابیفای - ثبت نام</title>
 </head>
-<body>
+<body class="auth">
 <div th:replace="~{security/fragment/_layout :: main(~{:: header}, ~{:: #already-logged-in}, ~{:: form.card-body})}">
     <header class="d-flex flex-column align-items-center">
         <a href="/">

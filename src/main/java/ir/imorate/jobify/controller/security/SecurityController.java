@@ -1,4 +1,4 @@
-package ir.imorate.jobify.controller;
+package ir.imorate.jobify.controller.security;
 
 import ir.imorate.jobify.entity.security.dto.SignupDTO;
 import ir.imorate.jobify.entity.security.enums.RoleType;
