@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{security/fragment/_layout :: head(~{:: title})}">
+<head th:replace="~{security/fragment/_auth :: head(~{:: title})}">
     <title th:text="|#{app.name} - #{nav.login}|">جابیفای - ورود</title>
 </head>
 <body class="auth">
-<div th:replace="~{security/fragment/_layout :: main(~{:: header}, ~{:: div.alert}, ~{:: form.card-body})}">
+<div th:replace="~{security/fragment/_auth :: main(~{:: header}, ~{:: div.alert}, ~{:: form.card-body})}">
     <header class="d-flex flex-column align-items-center">
         <a href="/">
             <img alt="Jobify" class="mb-2" height="80" th:alt="#{app.name}" th:src="@{logo.svg}" width="80">
@@ -71,6 +71,6 @@
         </div>
     </form>
 </div>
-<th:block th:replace="~{security/fragment/_layout :: script}"/>
+<th:block th:replace="~{security/fragment/_auth :: script}"/>
 </body>
 </html>
