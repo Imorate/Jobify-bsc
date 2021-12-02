@@ -28,7 +28,7 @@ public class IndexController {
                 currentUserProfile.ifPresent(profile -> model.addAttribute("currentUserProfile", profile));
             }
         }
-        return "index";
+        return "main/index";
     }
 
 }
