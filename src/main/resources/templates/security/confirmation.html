@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{security/fragment/_announcement :: head(~{:: title})}">
+    <title th:text="|#{app.name} - #{mail.title.activation}|">">جابیفای</title>
+</head>
+<body class="announcement">
+<div th:replace="~{security/fragment/_announcement :: main(~{:: .announcement-card})}">
+    <div class="card text-white announcement-card" th:classappend="${err}? 'bg-danger':'bg-success'">
+        <div class="card-header fw-bold" th:text="#{mail.title.activation}">فعال سازی</div>
+        <div class="card-body">
+            <p class="card-text" th:if="${err}" th:text="${err}">خطایی رخ داده است</p>
+            <p class="card-text" th:text="#{ct.activation.success}" th:unless="${err}">کاربر با موفقیت فعال شد</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
