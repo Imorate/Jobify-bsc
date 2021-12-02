@@ -21,24 +21,32 @@ import java.util.Set;
 public class User {
 
     @Column(name = "account_non_expired")
-    private final Boolean accountNonExpired = Boolean.TRUE;
+    private Boolean accountNonExpired = Boolean.TRUE;
+
     @Column(name = "account_non_locked")
-    private final Boolean accountNonLocked = Boolean.TRUE;
+    private Boolean accountNonLocked = Boolean.TRUE;
+
     @Column(name = "credentials_non_expired")
-    private final Boolean credentialsNonExpired = Boolean.TRUE;
+    private Boolean credentialsNonExpired = Boolean.TRUE;
+
     @Column(name = "enabled")
-    private final Boolean enabled = Boolean.FALSE;
+    private Boolean enabled = Boolean.FALSE;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
+
     @Column(name = "username", nullable = false, length = 32, unique = true)
     private String username;
+
     @Column(name = "password", nullable = false, length = 128)
     @ToString.Exclude
     private String password;
+
     @Column(name = "email", nullable = false, length = 32, unique = true)
     private String email;
+
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;

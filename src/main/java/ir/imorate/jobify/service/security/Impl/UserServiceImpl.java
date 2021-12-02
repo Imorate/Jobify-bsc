@@ -57,6 +57,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         profile.setUser(user);
         user.setRoles(roleSet);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setEnabled(false);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
         userRepository.save(user);
         profileService.create(profile);
         confirmationTokenService.generateToken(ConfirmationTokenType.ACTIVATION, 24, user);
@@ -65,6 +69,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public Optional<User> findUser(String username) {
         return userRepository.findUserByUsername(username);
+    }
+
+    @Override
+    public void enableUser(User user) {
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 
     @Override
