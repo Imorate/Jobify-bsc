@@ -1,4 +1,4 @@
-package ir.imorate.jobify.controller;
+package ir.imorate.jobify.controller.main;
 
 import ir.imorate.jobify.entity.security.Profile;
 import ir.imorate.jobify.entity.security.User;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
-public class IndexController {
+public class MainController {
 
     private final UserService userService;
     private final ProfileService profileService;
