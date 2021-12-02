@@ -12,6 +12,7 @@ import ir.imorate.jobify.service.security.ConfirmationTokenService;
 import ir.imorate.jobify.service.security.ProfileService;
 import ir.imorate.jobify.service.security.RoleService;
 import ir.imorate.jobify.service.security.UserService;
+import ir.imorate.jobify.service.security.mail.ActivationMailService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -40,6 +42,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
     private final SignupMapper signupMapper;
+    private final ActivationMailService activationMailService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -49,7 +52,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public void signup(SignupDTO signupDTO, RoleType roleType) {
+    public void signup(SignupDTO signupDTO, RoleType roleType) throws MessagingException {
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(roleService.findRole(roleType));
         User user = signupMapper.dtoToUser(signupDTO);
@@ -63,7 +66,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         user.setCredentialsNonExpired(true);
         userRepository.save(user);
         profileService.create(profile);
-        confirmationTokenService.generateToken(ConfirmationTokenType.ACTIVATION, 24, user);
+        String token = confirmationTokenService.generateToken(ConfirmationTokenType.ACTIVATION, 24, user);
+        activationMailService.sendActivationEmail(user, token);
     }
 
     @Override

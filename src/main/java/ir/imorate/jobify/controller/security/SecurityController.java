@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 @Controller
@@ -33,7 +34,7 @@ public class SecurityController {
 
     @PostMapping("/signup")
     public String signup(@Valid @ModelAttribute SignupDTO signupDTO, BindingResult bindingResult,
-                         RedirectAttributes redirectAttributes) {
+                         RedirectAttributes redirectAttributes) throws MessagingException {
         if (userService.isUserExists(signupDTO.getUsername(), signupDTO.getEmail())) {
             bindingResult.reject("sec.validation.user-exists.reject", "Registration Error");
             return "security/signup";
