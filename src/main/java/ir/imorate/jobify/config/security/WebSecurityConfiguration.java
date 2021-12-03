@@ -25,18 +25,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/",
-                        WebConstants.SIGNUP_URL
+                        WebConstants.ABOUTUS,
+                        WebConstants.CONTACTUS,
+                        WebConstants.SIGNUP
                 ).permitAll()
                 .antMatchers(
-                        WebConstants.CONFIRM_URL + "/*"
+                        WebConstants.CONFIRM + "/*"
                 ).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage(WebConstants.LOGIN_URL).permitAll()
-                .defaultSuccessUrl(WebConstants.DASHBOARD_URL).permitAll()
-                .failureUrl(WebConstants.LOGIN_FAILURE_URL)
+                .loginPage(WebConstants.LOGIN).permitAll()
+                .defaultSuccessUrl(WebConstants.DASHBOARD).permitAll()
+                .failureUrl(WebConstants.LOGIN_FAILURE)
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
@@ -45,7 +47,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .tokenRepository(persistentTokenRepository)
                 .and()
                 .logout()
-                .logoutUrl(WebConstants.LOGOUT_URL)
+                .logoutUrl(WebConstants.LOGOUT)
                 .logoutSuccessUrl("/")
         ;
     }

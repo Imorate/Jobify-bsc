@@ -31,4 +31,14 @@ public class MainController {
         return "main/index";
     }
 
+    @GetMapping("/about-us")
+    public String aboutUs() {
+        return "main/about-us";
+    }
+
+    @GetMapping("/contact-us")
+    public String contactUs() {
+        return "main/contact-us";
+    }
+
 }

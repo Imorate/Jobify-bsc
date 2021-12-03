@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{main/fragment/_layout :: head(~{:: title})}">
+    <title th:text="|#{app.name} - #{nav.about-us}|">جابیفای -درباره ما</title>
+</head>
+<body>
+<header th:replace="~{main/fragment/_layout :: header('about-us')}">
+</header>
+<script th:replace="~{main/fragment/_layout :: script}">
+</script>
+</body>
+</html>
