@@ -5,7 +5,6 @@ import org.springframework.core.convert.converter.Converter;
 
 import java.util.Arrays;
 
-
 public class StringToGenderConverter implements Converter<String, Gender> {
 
     @Override
