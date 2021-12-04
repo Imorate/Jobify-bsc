@@ -17,8 +17,8 @@
             <div th:text="#{sec.already-logged-in.message}">Info</div>
         </div>
         <form th:action="@{/logout}" th:method="POST">
-            <a class="btn btn-primary" role="button" th:href="@{/}">بازگشت به صفحه اصلی</a>
-            <button class="btn btn-outline-secondary" type="submit">خروج از سامانه</button>
+            <a class="btn btn-primary" role="button" th:href="@{/}" th:text="#{sec.back-to-index}">بازگشت به صفحه اصلی</a>
+            <button class="btn btn-outline-secondary" th:text="#{sec.logout}" type="submit">خروج از سامانه</button>
         </form>
     </div>
     <form class="card-body needs-validation mb-3" novalidate sec:authorize="isAnonymous()" th:action="@{/signup}" th:method="POST" th:object="${signupDTO}">
