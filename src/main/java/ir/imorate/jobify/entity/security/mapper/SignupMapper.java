@@ -9,6 +9,10 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface SignupMapper {
 
+    @Mapping(target = "enabled", ignore = true)
+    @Mapping(target = "credentialsNonExpired", ignore = true)
+    @Mapping(target = "accountNonLocked", ignore = true)
+    @Mapping(target = "accountNonExpired", ignore = true)
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "modifiedDate", ignore = true)
     @Mapping(target = "id", ignore = true)
