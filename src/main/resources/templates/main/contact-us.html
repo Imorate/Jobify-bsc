@@ -4,9 +4,43 @@
     <title th:text="|#{app.name} - #{nav.contact-us}|">جابیفای - تماس با ما</title>
 </head>
 <body>
-<header th:replace="~{main/fragment/_layout :: header('contact-us')}">
-</header>
-<script th:replace="~{main/fragment/_layout :: script}">
-</script>
+<header th:replace="~{main/fragment/_layout :: header('contact-us')}"></header>
+<div class="container">
+    <main>
+        <main class="my-5">
+            <div class="bg-light rounded p-4 main-content">
+                <h1 class="mb-4 fw-bold" th:text="#{nav.contact-us}">جابیفای</h1>
+                <form id="contact-us">
+                    <div class="row mb-3 gy-3">
+                        <div class="col-lg-8">
+                            <div class="form-floating">
+                                <input class="form-control" id="title" placeholder="عنوان" type="text">
+                                <label for="title">عنوان</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-floating">
+                                <select aria-label="نوع ارسالی" class="form-select" id="type">
+                                    <option selected>نوع ارسالی را انتخاب کنید</option>
+                                    <option th:each="type: ${T(ir.imorate.jobify.entity.main.enums.ContactUsType).values()}"
+                                            th:text="#{${'contactus.type.' + type}}" th:value="${type.title}">نوع ارسالی
+                                    </option>
+                                </select>
+                                <label for="type">نوع ارسالی</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <textarea class="form-control" id="body" placeholder="متن پیام"></textarea>
+                        <label for="body">متن پیام</label>
+                    </div>
+                    <button class="btn btn-primary w-25" type="submit">ارسال</button>
+                </form>
+            </div>
+        </main>
+    </main>
+    <footer th:replace="~{main/fragment/_layout :: footer}"></footer>
+</div>
+<script th:replace="~{main/fragment/_layout :: script}"></script>
 </body>
 </html>

@@ -14,11 +14,8 @@ import ir.imorate.jobify.service.security.RoleService;
 import ir.imorate.jobify.service.security.UserService;
 import ir.imorate.jobify.service.security.mail.ActivationMailService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,9 +24,11 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -84,52 +83,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public boolean isUserExists(String username, String email) {
         return userRepository.existsByUsernameOrEmailAllIgnoreCase(username, email);
-    }
-
-    @Override
-    public Optional<User> getCurrentUserLogin() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return findUser(extractPrincipal(securityContext.getAuthentication()));
-    }
-
-    @Override
-    public boolean isAuthenticated() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null && getAuthorities(authentication).noneMatch("ROLE_ANONYMOUS"::equals);
-    }
-
-    @Override
-    public boolean hasCurrentUserAnyOfAuthorities(String... authorities) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (
-                authentication != null && getAuthorities(authentication)
-                        .anyMatch(authority -> Arrays.asList(authorities).contains(authority))
-        );
-    }
-
-    @Override
-    public boolean hasCurrentUserNoneOfAuthorities(String... authorities) {
-        return !hasCurrentUserAnyOfAuthorities(authorities);
-    }
-
-    @Override
-    public boolean hasCurrentUserThisAuthority(String authority) {
-        return hasCurrentUserAnyOfAuthorities(authority);
-    }
-
-    private Stream<String> getAuthorities(Authentication authentication) {
-        return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority);
-    }
-
-    private String extractPrincipal(Authentication authentication) {
-        if (authentication == null) {
-            return null;
-        } else if (authentication.getPrincipal() instanceof UserDetails springSecurityUser) {
-            return springSecurityUser.getUsername();
-        } else if (authentication.getPrincipal() instanceof String) {
-            return (String) authentication.getPrincipal();
-        }
-        return null;
     }
 
     private UserDetails createSpringSecurityUser(User user) {

@@ -17,14 +17,4 @@ public interface UserService {
 
     boolean isUserExists(String username, String email);
 
-    boolean isAuthenticated();
-
-    boolean hasCurrentUserAnyOfAuthorities(String... authorities);
-
-    boolean hasCurrentUserNoneOfAuthorities(String... authorities);
-
-    boolean hasCurrentUserThisAuthority(String authority);
-
-    Optional<User> getCurrentUserLogin();
-
 }

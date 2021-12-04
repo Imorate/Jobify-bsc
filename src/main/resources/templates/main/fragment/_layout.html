@@ -91,6 +91,24 @@
         </div>
     </nav>
 </header>
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top main-footer" th:fragment="footer">
+    <p class="col-md-4 mb-0 text-muted" th:text="#{footer.copyright(${#numbers.formatDecimal(year, 0, 0)})}"
+       th:with="year= ${#dates.year(#dates.createNow())}">© 2021 Jobify, Inc</p>
+    <a class="col-md-4 d-flex align-items-center justify-content-center me-md-auto link-dark text-decoration-none" th:href="#{nav.home}">
+        <img alt="Jobify" height="30" th:alt="#{app.name}" th:src="@{logo.svg}" width="30">
+    </a>
+    <ul class="nav col-md-4 justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link px-2 text-muted" th:href="@{/}" th:text="#{nav.home}">صفحه اصلی</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link px-2 text-muted" th:href="@{/about-us}" th:text="#{nav.about-us}">درباره ما</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link px-2 text-muted" th:href="@{/contact-us}" th:text="#{nav.contact-us}">ارتباط با ما</a>
+        </li>
+    </ul>
+</footer>
 <th:block th:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </th:block>

@@ -1,4 +1,4 @@
-.auth-content, .landing-navbar, .announcement-card {
+.auth-content, .landing-navbar, .announcement-card, .main-content, .main-footer {
     font-family: 'Vazir', sans-serif;
 }
 
@@ -15,4 +15,10 @@
 
 .announcement-card {
     min-width: 50%;
+}
+
+#contact-us textarea {
+    height: 200px;
+    min-height: 100px;
+    max-height: 300px;
 }
