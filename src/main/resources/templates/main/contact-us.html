@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="fa" xmlns:th="http://www.thymeleaf.org">
+<html dir="rtl" lang="fa" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{main/fragment/_layout :: head(~{:: title})}">
     <title th:text="|#{app.name} - #{nav.contact-us}|">جابیفای - تماس با ما</title>
 </head>
@@ -10,7 +10,14 @@
         <main class="my-5">
             <div class="bg-light rounded p-4 main-content">
                 <h1 class="mb-4 fw-bold" th:text="#{nav.contact-us}">جابیفای</h1>
-                <form id="contact-us">
+                <div class="alert alert-info" role="alert" sec:authorize="isAnonymous()">
+                    <div class="d-flex mb-3">
+                        <i class="bi bi-exclamation-square-fill flex-shrink-0 me-2"></i>
+                        <div th:text="#{sec.dont-login-yet}">Info</div>
+                    </div>
+                    <a class="btn btn-primary" role="button" th:href="@{/}" th:text="#{sec.login}">ورود</a>
+                </div>
+                <form id="contact-us" sec:authorize="isAuthenticated()">
                     <div class="row mb-3 gy-3">
                         <div class="col-lg-8">
                             <div class="form-floating">
