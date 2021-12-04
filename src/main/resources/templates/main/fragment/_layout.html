@@ -92,12 +92,9 @@
     </nav>
 </header>
 <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top main-footer" th:fragment="footer">
-    <p class="col-md-4 mb-0 text-muted" th:text="#{footer.copyright(${#numbers.formatDecimal(year, 0, 0)})}"
-       th:with="year= ${#dates.year(#dates.createNow())}">© 2021 Jobify, Inc</p>
-    <a class="col-md-4 d-flex align-items-center justify-content-center me-md-auto link-dark text-decoration-none" th:href="#{nav.home}">
-        <img alt="Jobify" height="30" th:alt="#{app.name}" th:src="@{logo.svg}" width="30">
-    </a>
-    <ul class="nav col-md-4 justify-content-end">
+    <span class="text-muted" th:text="#{footer.copyright(${#numbers.formatDecimal(year, 0, 0)})}"
+          th:with="year= ${#dates.year(#dates.createNow())}">© 2021 Jobify, Inc</span>
+    <ul class="nav justify-content-end">
         <li class="nav-item">
             <a class="nav-link px-2 text-muted" th:href="@{/}" th:text="#{nav.home}">صفحه اصلی</a>
         </li>
