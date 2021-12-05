@@ -20,18 +20,6 @@ import java.util.Set;
 @ToString
 public class User {
 
-    @Column(name = "account_non_expired")
-    private Boolean accountNonExpired = Boolean.TRUE;
-
-    @Column(name = "account_non_locked")
-    private Boolean accountNonLocked = Boolean.TRUE;
-
-    @Column(name = "credentials_non_expired")
-    private Boolean credentialsNonExpired = Boolean.TRUE;
-
-    @Column(name = "enabled")
-    private Boolean enabled = Boolean.FALSE;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
@@ -46,6 +34,18 @@ public class User {
 
     @Column(name = "email", nullable = false, length = 32, unique = true)
     private String email;
+
+    @Column(name = "account_non_expired")
+    private Boolean accountNonExpired = Boolean.TRUE;
+
+    @Column(name = "account_non_locked")
+    private Boolean accountNonLocked = Boolean.TRUE;
+
+    @Column(name = "credentials_non_expired")
+    private Boolean credentialsNonExpired = Boolean.TRUE;
+
+    @Column(name = "enabled")
+    private Boolean enabled = Boolean.FALSE;
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
