@@ -4,6 +4,7 @@ import ir.imorate.jobify.entity.security.Profile;
 import ir.imorate.jobify.entity.security.User;
 import ir.imorate.jobify.repository.security.ProfileRepository;
 import ir.imorate.jobify.service.security.ProfileService;
+import ir.imorate.jobify.utils.SecurityUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,10 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public Optional<Profile> findProfile(User user) {
         return profileRepository.findProfileByUser(user);
+    }
+
+    @Override
+    public Optional<Profile> currentUserLoginProfile() {
+        return SecurityUtils.getCurrentUserLogin().flatMap(profileRepository::findByUser_UsernameIgnoreCase);
     }
 }

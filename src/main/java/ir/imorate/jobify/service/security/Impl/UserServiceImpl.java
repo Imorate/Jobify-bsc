@@ -13,6 +13,7 @@ import ir.imorate.jobify.service.security.ProfileService;
 import ir.imorate.jobify.service.security.RoleService;
 import ir.imorate.jobify.service.security.UserService;
 import ir.imorate.jobify.service.security.mail.ActivationMailService;
+import ir.imorate.jobify.utils.SecurityUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -83,6 +84,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public boolean isUserExists(String username, String email) {
         return userRepository.existsByUsernameOrEmailAllIgnoreCase(username, email);
+    }
+
+    @Override
+    public Optional<User> currentUserLogin() {
+        return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findByUsernameIgnoreCase);
     }
 
     private UserDetails createSpringSecurityUser(User user) {

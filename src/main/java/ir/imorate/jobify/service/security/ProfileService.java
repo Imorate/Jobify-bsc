@@ -11,4 +11,6 @@ public interface ProfileService {
 
     Optional<Profile> findProfile(User user);
 
+    Optional<Profile> currentUserLoginProfile();
+
 }
