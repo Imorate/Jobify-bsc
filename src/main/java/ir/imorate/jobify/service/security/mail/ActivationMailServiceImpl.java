@@ -42,11 +42,11 @@ public class ActivationMailServiceImpl implements ActivationMailService {
         String confirmationUrl = confirmationTokenService.generateURL(token, ConfirmationTokenType.ACTIVATION);
         context.put("profile", profile);
         context.put("confirmationUrl", confirmationUrl);
-        makeMimeMessage(mimeMessage, user);
+        makeMimeMessage(mimeMessage);
         mailSender.send(mimeMessage);
     }
 
-    private void makeMimeMessage(MimeMessage mimeMessage, User user) throws MessagingException {
+    private void makeMimeMessage(MimeMessage mimeMessage) throws MessagingException {
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
         mimeMessageHelper.setSubject(generateSubject());
         mimeMessageHelper.setFrom("no-reply@jobify.ir");
