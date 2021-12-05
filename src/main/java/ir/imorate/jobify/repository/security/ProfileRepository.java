@@ -12,4 +12,8 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
     Optional<Profile> findProfileByUser(User user);
 
+    Optional<Profile> findByUser_UsernameIgnoreCase(String username);
+
+    Optional<Profile> findByUser_EmailIgnoreCase(String email);
+
 }

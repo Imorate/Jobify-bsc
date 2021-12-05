@@ -46,7 +46,7 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
     @Override
     @Transactional
     public void acceptToken(String token, ConfirmationTokenType confirmationTokenType) throws ConfirmationTokenNotFoundException, ConfirmationTokenExpiredException, ConfirmationTokenTypeMismatchException {
-        Optional<ConfirmationToken> confirmationToken = confirmationTokenRepository.findByTokenAndConfirmedAtIsNull(token);
+        Optional<ConfirmationToken> confirmationToken = confirmationTokenRepository.findByTokenIgnoreCaseAndConfirmedAtIsNull(token);
         if (confirmationToken.isEmpty()) {
             throw new ConfirmationTokenNotFoundException("Token " + token + " not found");
         } else if (confirmationToken.get().getExpiresAt().isBefore(LocalDateTime.now())) {
