@@ -66,7 +66,7 @@
         <div class="form-floating mb-3">
             <select aria-label="Gender selection" class="form-select" id="gender-selection" th:field="*{gender}">
                 <option selected th:text="#{sec.gender}" value="other">جنسیت</option>
-                <option th:each="gender: ${T(ir.imorate.jobify.entity.security.enums.Gender).values()}" th:text="#{${'gender.' + gender}}" th:value="${gender.title}">جنسیت
+                <option th:each="gender: ${T(ir.imorate.jobify.entity.security.enums.Gender).values()}" th:text="#{${'gender.' + gender}}" th:value="${gender}">جنسیت
                 </option>
             </select>
             <label for="gender-selection" th:text="#{sec.gender-selection}">انتخاب جنسیت</label>
