@@ -1,5 +1,6 @@
 package ir.imorate.jobify.config.mvc;
 
+import ir.imorate.jobify.entity.main.enums.converter.StringToContactUsTypeConverter;
 import ir.imorate.jobify.entity.security.enums.converter.StringToGenderConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -11,6 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToGenderConverter());
+        registry.addConverter(new StringToContactUsTypeConverter());
     }
 
 }

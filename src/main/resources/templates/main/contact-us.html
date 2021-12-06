@@ -15,31 +15,47 @@
                         <i class="bi bi-exclamation-square-fill flex-shrink-0 me-2"></i>
                         <div th:text="#{sec.dont-login-yet}">Info</div>
                     </div>
-                    <a class="btn btn-primary" role="button" th:href="@{/}" th:text="#{sec.login}">ورود</a>
+                    <a class="btn btn-primary" role="button" th:href="@{/login}" th:text="#{sec.login}">ورود</a>
                 </div>
-                <form id="contact-us" sec:authorize="isAuthenticated()">
+                <div class="alert alert-success" role="alert" th:if="${successMessage}">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill flex-shrink-0 me-2"></i>
+                        <div th:text="#{cu.message.successful}">Successful</div>
+                    </div>
+                </div>
+                <form class="needs-validation" id="contact-us" novalidate sec:authorize="isAuthenticated()" th:action="@{/contact-us}" th:method="POST" th:object="${contactUsDTO}">
                     <div class="row mb-3 gy-3">
                         <div class="col-lg-8">
                             <div class="form-floating">
-                                <input class="form-control" id="title" placeholder="عنوان" type="text">
+                                <input class="form-control" id="title" placeholder="عنوان" required th:field="*{title}" type="text">
                                 <label for="title">عنوان</label>
+                                <div class="invalid-feedback" th:text="#{cu.title.null}">Error</div>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-floating">
-                                <select aria-label="نوع ارسالی" class="form-select" id="type">
-                                    <option selected>نوع ارسالی را انتخاب کنید</option>
+                                <select aria-label="نوع ارسالی" class="form-select" id="type" required th:field="*{contactUsType}">
+                                    <option selected value="-1">نوع ارسالی را انتخاب کنید</option>
                                     <option th:each="type: ${T(ir.imorate.jobify.entity.main.enums.ContactUsType).values()}"
-                                            th:text="#{${'contactus.type.' + type}}" th:value="${type.title}">نوع ارسالی
+                                            th:text="#{${'contactus.type.' + type}}" th:value="${type}">نوع ارسالی
                                     </option>
                                 </select>
                                 <label for="type">نوع ارسالی</label>
+                                <div class="invalid-feedback" th:text="#{cu.type.null}">Error</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-floating mb-4">
-                        <textarea class="form-control" id="body" placeholder="متن پیام"></textarea>
+                        <textarea class="form-control" id="body" placeholder="متن پیام" required th:field="*{body}"></textarea>
                         <label for="body">متن پیام</label>
+                        <div class="invalid-feedback" th:text="#{cu.body.null}">Error</div>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible fade show mb-4 w-50" role="alert" th:if="${#fields.hasErrors('*')}">
+                        <div class="d-flex align-items-center" th:each="err : ${#fields.errors('*')}">
+                            <i class="bi bi-exclamation-circle-fill flex-shrink-0 me-2"></i>
+                            <div th:text="${err}">اشکال در فیلد</div>
+                        </div>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
                     </div>
                     <button class="btn btn-primary w-25" type="submit">ارسال</button>
                 </form>
@@ -48,6 +64,6 @@
     </main>
     <footer th:replace="~{main/fragment/_layout :: footer}"></footer>
 </div>
-<script th:replace="~{main/fragment/_layout :: script}"></script>
+<th:block th:replace="~{security/fragment/_auth :: script}"/>
 </body>
 </html>

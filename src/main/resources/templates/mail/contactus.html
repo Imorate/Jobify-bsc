@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{mail/fragment/_layout :: head}">
+    <title>Jobify</title>
+</head>
+<body>
+<div th:replace="~{mail/fragment/_layout :: main('mail.title.contactus', ~{:: #content})}">
+    <div id="content">
+        <p th:text="#{mail.body.greeting(${profile.firstName}, ${profile.lastName})}">درود</p>
+        <p th:text="#{mail.body.contactus}">پیام شما ثبت شد</p>
+    </div>
+</div>
+</body>
+</html>
