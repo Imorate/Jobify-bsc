@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         userRepository.save(user);
         profileService.create(profile);
         String token = confirmationTokenService.generateToken(ConfirmationTokenType.ACTIVATION, 24, user);
-        activationMailService.sendActivationEmail(user, token);
+        activationMailService.sendEmail(user, token);
     }
 
     @Override
