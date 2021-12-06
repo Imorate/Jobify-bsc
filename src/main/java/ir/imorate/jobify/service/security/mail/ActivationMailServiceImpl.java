@@ -40,7 +40,7 @@ public class ActivationMailServiceImpl implements ActivationMailService {
         context.put("confirmationUrl", confirmationUrl);
         String subject = MailUtils.makeSubject(messageSource.getMessage("app.name", null, Locale.getDefault()),
                 messageSource.getMessage("mail.title.activation", null, Locale.getDefault()));
-        String text = MailUtils.processTemplate(templateEngine, "security/mail/activation", context);
+        String text = MailUtils.processTemplate(templateEngine, "mail/activation", context);
         MailUtils.makeMimeMessage(mimeMessage, user.getEmail(), subject, text);
         mailSender.send(mimeMessage);
     }

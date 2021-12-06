@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head">
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -15,23 +15,17 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container" th:fragment="main(subtitle, content)">
     <div class="card my-5">
         <div class="card-body">
             <div class="d-flex gap-3 mb-4">
                 <img alt="Jobify" class="img-fluid" height="50" src="cid:logo.svg" width="50">
                 <div>
                     <h4 class="card-title fw-bold mb-2" th:text="#{app.name}">جابیفای</h4>
-                    <h6 class="card-subtitle text-muted" th:text="#{mail.title.activation}">فعال سازی</h6>
+                    <h6 class="card-subtitle text-muted" th:text="#{${subtitle}}">Action</h6>
                 </div>
             </div>
-            <p th:text="#{mail.body.greeting(${profile.firstName}, ${profile.lastName})}">
-                درود
-            </p>
-            <p th:text="#{mail.body.activation}">
-                فعال سازی حساب کاربری
-            </p>
-            <a class="btn btn-primary w-25" role="button" th:href="${confirmationUrl}">فعال سازی</a>
+            <div th:replace="${content}"></div>
         </div>
     </div>
 </div>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{mail/fragment/_layout :: head}">
+    <title>Jobify</title>
+</head>
+<body>
+<div th:replace="~{mail/fragment/_layout :: main('mail.title.activation', ~{:: #content})}">
+    <div id="content">
+        <p th:text="#{mail.body.greeting(${profile.firstName}, ${profile.lastName})}">درود</p>
+        <p th:text="#{mail.body.activation}">فعال سازی حساب کاربری</p>
+        <a class="btn btn-primary w-25" role="button" th:href="${confirmationUrl}">فعال سازی</a>
+    </div>
+</div>
+</body>
+</html>
